@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import Aux from '../../hoc/Aux/Aux' 
 import Burger from '../../components/Burger/Burger'
 import BuildControls from '../../components/Burger/BuildControls/BuildControls'
-import Modal from '../../UI/Modal/Modal'
-import OrderSummary from '../../components/OrderSummary/OrderSummary'
+import Modal from '../../components/UI/Modal/Modal'
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 
 const INGREDIENT_PRICE = {
     salad: 0.5,
@@ -59,12 +59,16 @@ class BurgerBuilder extends Component {
         this.setState({purchasable: sum > 0})
     }
 
-    order = () => {
+    purchaseBeginHandler = () => {
         this.setState({purchasing: true})
     }
 
-    closeModal = () => {
+    purchaseCancelHandler = () => {
         this.setState({purchasing: false})
+    }
+
+    purchaseContinueHandler = () => {
+        alert("Continue to purchase!")
     }
 
     render() {
@@ -74,8 +78,13 @@ class BurgerBuilder extends Component {
 
         return (
             <Aux>
-                <Modal show={this.state.purchasing} closeModal={this.closeModal}>
-                    <OrderSummary ingredients={this.state.ingredients}/>
+                <Modal show={this.state.purchasing} purchaseCancelled={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        price={this.state.totalPrice}
+                        ingredients={this.state.ingredients}
+                        cancelled={this.purchaseCancelHandler}
+                        continued={this.purchaseContinueHandler}
+                    />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls 
@@ -85,7 +94,7 @@ class BurgerBuilder extends Component {
                     disableInfo={disableInfo}
                     price={this.state.totalPrice}
                     purchasable={this.state.purchasable}
-                    order={this.order}
+                    order={this.purchaseBeginHandler}
                 />
             </Aux>
         )
