@@ -27,7 +27,7 @@ const Modal = (props) => {
 
 // re-render the modal only when the show props changes
 const areEqual = (prevProps, nextProps) => {
-    if (nextProps.show !== prevProps.show) {
+    if (nextProps.show !== prevProps.show || nextProps.children !== prevProps.children) {
         return false
     } else {
         return true;
