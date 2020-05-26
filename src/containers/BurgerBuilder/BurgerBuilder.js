@@ -30,7 +30,12 @@ class BurgerBuilder extends Component {
         axios
             .get("ingredients.json")
             .then((res) => {
-                this.setState({ ingredients: res.data })
+                let price = this.state.totalPrice
+                for (let key in res.data) {
+                    price += INGREDIENT_PRICE[key] * res.data[key]
+                }
+                
+                this.setState({ingredients: res.data, totalPrice: price})
             })
             .catch((err) => {
                 this.setState({ error: err })
@@ -79,11 +84,13 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         // "salad=1&cheese=1"
-        const queryParams = Object.entries(this.state.ingredients)
+        let queryParams = Object.entries(this.state.ingredients)
             .reduce((arr, [key, value]) => {
                 return arr.concat(key + "=" + value)
             }, [])
             .join("&")
+        
+        queryParams += `&price=${this.state.totalPrice}`
 
         this.props.history.push({
             pathname: "/checkout",

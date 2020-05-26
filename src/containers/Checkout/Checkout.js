@@ -1,19 +1,22 @@
-import React, { useState, useEffect, Component } from 'react'
-import { Route } from 'react-router-dom'
-import CheckoutSummary from '../../components/CheckoutSummary/CheckoutSummary'
-import ContactData from './ContactData/ContactData'
-
+import React, { useState, useEffect, Component } from "react"
+import { Route } from "react-router-dom"
+import CheckoutSummary from "../../components/CheckoutSummary/CheckoutSummary"
+import ContactData from "./ContactData/ContactData"
 
 const Checkout = (props) => {
-
     const [ingredients, setIngredients] = useState({})
-    
+    const [price, setPrice] = useState(0)
+
     useEffect(() => {
         const query = new URLSearchParams(props.location.search)
         const newIngredients = {}
 
         for (let [key, value] of query) {
-            newIngredients[key] = +value
+            if (key === "price") {
+                setPrice(+value)
+            } else {
+                newIngredients[key] = +value
+            }
         }
 
         setIngredients(newIngredients)
@@ -29,13 +32,16 @@ const Checkout = (props) => {
 
     return (
         <div>
-            <CheckoutSummary 
+            <CheckoutSummary
                 ingredients={ingredients}
                 checkoutCancelled={checkoutCancelledHandler}
                 checkoutContinued={checkoutContinuedHandler}
             />
 
-            <Route path={`${props.match.path}/contact-data`} component={ContactData} />
+            <Route
+                path={`${props.match.path}/contact-data`}
+                render={() => <ContactData ingredients={ingredients} price={price}/>}
+            />
         </div>
     )
 }
