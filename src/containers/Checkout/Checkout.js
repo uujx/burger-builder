@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react"
+import React, { useState, useEffect } from "react"
 import { Route } from "react-router-dom"
 import CheckoutSummary from "../../components/CheckoutSummary/CheckoutSummary"
 import ContactData from "./ContactData/ContactData"

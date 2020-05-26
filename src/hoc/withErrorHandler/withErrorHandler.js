@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import Aux from "../Aux/Aux"
 import Modal from "../../components/UI/Modal/Modal"
 
 const withErrorHandler = (WrappedComponent, axios) => {
@@ -31,12 +30,12 @@ const withErrorHandler = (WrappedComponent, axios) => {
         }
 
         return (
-            <Aux>
+            <>
                 <Modal show={error} cancel={dismissError}>
                     {error ? error.message : null}
                 </Modal>
                 <WrappedComponent {...props} />
-            </Aux>
+            </>
         )
     }
 }

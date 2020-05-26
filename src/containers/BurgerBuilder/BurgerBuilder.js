@@ -1,6 +1,4 @@
 import React, { Component } from "react"
-
-import Aux from "../../hoc/Aux/Aux"
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler"
 import Burger from "../../components/Burger/Burger"
 import BuildControls from "../../components/Burger/BuildControls/BuildControls"
@@ -110,7 +108,7 @@ class BurgerBuilder extends Component {
         let orderSummary = <Spinner />
         if (this.state.ingredients) {
             burger = (
-                <Aux>
+                <>
                     <Burger ingredients={this.state.ingredients} />
                     <BuildControls
                         ingredients={this.state.ingredients}
@@ -121,7 +119,7 @@ class BurgerBuilder extends Component {
                         purchasable={this.state.purchasable}
                         order={this.purchaseBeginHandler}
                     />
-                </Aux>
+                </>
             )
             orderSummary = (
                 <OrderSummary
@@ -138,7 +136,7 @@ class BurgerBuilder extends Component {
         }
 
         return (
-            <Aux>
+            <>
                 <Modal
                     show={this.state.purchasing}
                     cancel={this.purchaseCancelHandler}
@@ -146,7 +144,7 @@ class BurgerBuilder extends Component {
                     {orderSummary}
                 </Modal>
                 {burger}
-            </Aux>
+            </>
         )
     }
 }

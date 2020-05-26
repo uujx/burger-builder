@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Aux from '../../../hoc/Aux/Aux'
 import Button from '../../UI/Button/Button'
 
 const OrderSummary = (props) => {
@@ -14,7 +13,7 @@ const OrderSummary = (props) => {
         })
 
     return (
-        <Aux>
+        <>
             <h3>Order Summary</h3>
             <p>A delicious burger with the following ingredients:</p>
             <ul>
@@ -24,7 +23,7 @@ const OrderSummary = (props) => {
             <p>Continue to purchase?</p>
             <Button btnType="Danger" clicked={props.cancelled}>CANCEL</Button>
             <Button btnType="Success" clicked={props.continued}>CONTINUE</Button>
-        </Aux>
+        </>
     )
 }
 
