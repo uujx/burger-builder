@@ -1,0 +1,29 @@
+.Container {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.Label {
+  display: block;
+  font-weight: bold;
+}
+
+.Input {
+  width: 100%;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  border: 1px solid #CCC;
+  font: inherit;
+}
+
+.Input:focus {
+  outline: none;
+  background-color: #CCC;
+}
+
+
+.Invalid {
+  background-color: rgb(241, 177, 169);
+  border: 1px solid rgba(231, 15, 15, 0.87)
+}
