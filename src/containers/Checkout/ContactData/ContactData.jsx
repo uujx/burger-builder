@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Button from '../../../components/UI/Button/Button'
 import axios from '../../../axios-orders'
 import classes from './ContactData.module.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
+import * as actions from '../../../store/actions/index'
 
 const ContactData = (props) => {
   // ****************************States****************************
-  const ingredients = useSelector((state) => state.ingredients)
-  const totalPrice = useSelector((state) => state.totalPrice)
-  const [loading, setLoading] = useState(false)
+  const ingredients = useSelector((state) => state.burgerBuilder.ingredients)
+  const totalPrice = useSelector((state) => state.burgerBuilder.totalPrice)
+  const loading = useSelector((state) => state.order.loading)
   const [formValidity, setFormValidity] = useState(false)
-  const history = useHistory()
+  const dispatch = useDispatch()
 
   const [orderForm, setOrderForm] = useState({
     name: {
@@ -137,7 +138,6 @@ const ContactData = (props) => {
 
   const orderHandler = (event) => {
     event.preventDefault()
-    setLoading(true)
 
     const customer = {}
     for (let key in orderForm) {
@@ -150,17 +150,7 @@ const ContactData = (props) => {
       customer
     }
 
-    axios
-      .post('orders.json', order)
-      .then((res) => {
-        setLoading(false)
-        history.push('/')
-      })
-      .catch((err) => {
-        setLoading(false)
-        alert('Something went wrong!')
-        console.log(err)
-      })
+    dispatch(actions.purchaseBurger(order))
   }
 
   // ****************************Construction****************************
@@ -223,4 +213,4 @@ function checkValidity(value, rules) {
   return true
 }
 
-export default ContactData
+export default withErrorHandler(ContactData, axios)

@@ -6,7 +6,7 @@ Basically, it is a shopping page where users can order burgers as they want and 
 
 ## Front-end
 
-The front-end is built with **React** plus **Redux** for state management and **react-router** for routing in SPA.
+The front-end is bootstrapped with **create-react-app** and is built with **React** plus **Redux** for state management and **react-router** for routing in SPA.
 
 ## Back-end
 
