@@ -33,6 +33,7 @@ export const purchaseBurgerFailed = (error) => {
 
 export const purchaseBurger = (order) => {
   return (dispatch) => {
+
     dispatch(purchaseBurgerStart())
 
     axios
@@ -68,7 +69,12 @@ export const fetchOrdersFailed = (error) => {
 }
 
 export const fetchOrders = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    // Use getState to decide whether to fetch orders or use the cached one
+    if (!getState().order.firstLaunch) {
+      return 
+    }
+
     dispatch(fetchOrdersStart())
 
     axios

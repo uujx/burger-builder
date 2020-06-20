@@ -10,13 +10,10 @@ import * as actions from '../../store/actions/index'
 const Orders = () => {
   const loading = useSelector((state) => state.order.loading)
   const orders = useSelector((state) => state.order.orders)
-  const firstLaunch = useSelector((state) => state.order.firstLaunch)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (firstLaunch) {
-      dispatch(actions.fetchOrders())
-    }
+    dispatch(actions.fetchOrders())
   }, [])
 
   let data = orders.map((order) => {
