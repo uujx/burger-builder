@@ -6,6 +6,7 @@ import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import * as actions from '../../store/actions'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import { checkValidity } from '../../shared/utility'
 import styles from './Auth.module.css'
 
 const Auth = () => {
@@ -87,29 +88,6 @@ const Auth = () => {
 
   const switchHandler = () => {
     setIsSignUp(!isSignUp)
-  }
-
-  function checkValidity(value, rules) {
-    if (rules.required && value.trim() === '') {
-      return false
-    }
-
-    if (
-      rules.isEmail &&
-      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)
-    ) {
-      return false
-    }
-
-    if (rules.minLength && value.length < rules.minLength) {
-      return false
-    }
-
-    if (rules.maxLength && value.length > rules.maxLength) {
-      return false
-    }
-
-    return true
   }
 
   const inputElements = Object.entries(userCredential).map(([key, el]) => {

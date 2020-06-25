@@ -8,13 +8,14 @@ import Spinner from '../../../components/UI/Spinner/Spinner'
 import Input from '../../../components/UI/Input/Input'
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/index'
+import { checkValidity } from '../../../shared/utility'
 
 const ContactData = (props) => {
   // ****************************States****************************
   const ingredients = useSelector((state) => state.burgerBuilder.ingredients)
   const totalPrice = useSelector((state) => state.burgerBuilder.totalPrice)
   const loading = useSelector((state) => state.order.loading)
-  const userId = useSelector(state => state.auth.userId)
+  const userId = useSelector((state) => state.auth.userId)
   const [formValidity, setFormValidity] = useState(false)
   const dispatch = useDispatch()
 
@@ -189,30 +190,6 @@ const ContactData = (props) => {
       {loading ? <Spinner /> : form}
     </div>
   )
-}
-
-// ****************************Helper Functions****************************
-function checkValidity(value, rules) {
-  if (rules.required && value.trim() === '') {
-    return false
-  }
-
-  if (
-    rules.isEmail &&
-    !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)
-  ) {
-    return false
-  }
-
-  if (rules.minLength && value.length < rules.minLength) {
-    return false
-  }
-
-  if (rules.maxLength && value.length > rules.maxLength) {
-    return false
-  }
-
-  return true
 }
 
 export default withErrorHandler(ContactData, axios)
