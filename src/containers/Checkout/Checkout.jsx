@@ -33,7 +33,11 @@ const Checkout = (props) => {
     </div>
   )
 
-  if (!ingredients) {
+  const ingredientsCount = Object.values(ingredients).reduce(
+    (cur, sum) => sum + cur,
+    0
+  )
+  if (ingredientsCount === 0) {
     checkoutRedirect = <Redirect to='/' />
   }
 

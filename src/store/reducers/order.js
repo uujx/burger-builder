@@ -35,8 +35,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.PURCHASE_BURGER_FAILED:
       return {
         ...state,
-        error: action.error,
-        purchased: true
+        error: action.error
       }
 
     case actionTypes.FETCH_ORDERS_START:

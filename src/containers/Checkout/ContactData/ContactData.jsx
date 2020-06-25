@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, useStore } from 'react-redux'
 
 import Button from '../../../components/UI/Button/Button'
 import axios from '../../../axios-orders'
@@ -14,6 +14,7 @@ const ContactData = (props) => {
   const ingredients = useSelector((state) => state.burgerBuilder.ingredients)
   const totalPrice = useSelector((state) => state.burgerBuilder.totalPrice)
   const loading = useSelector((state) => state.order.loading)
+  const userId = useSelector(state => state.auth.userId)
   const [formValidity, setFormValidity] = useState(false)
   const dispatch = useDispatch()
 
@@ -42,7 +43,7 @@ const ContactData = (props) => {
       },
       validation: {
         required: true,
-        emailValidation: true
+        isEmail: true
       },
       valid: false,
       touched: false
@@ -139,15 +140,16 @@ const ContactData = (props) => {
   const orderHandler = (event) => {
     event.preventDefault()
 
-    const customer = {}
+    const user = {}
     for (let key in orderForm) {
-      customer[key] = orderForm[key].value
+      user[key] = orderForm[key].value
     }
 
     const order = {
       ingredients,
       totalPrice,
-      customer
+      user,
+      uid: userId
     }
 
     dispatch(actions.purchaseBurger(order))
@@ -155,7 +157,7 @@ const ContactData = (props) => {
 
   // ****************************Construction****************************
 
-  const inputElements = Object.entries(orderForm).map(([key, el], idx) => {
+  const inputElements = Object.entries(orderForm).map(([key, el]) => {
     return (
       <Input
         key={key}
@@ -196,7 +198,7 @@ function checkValidity(value, rules) {
   }
 
   if (
-    rules.emailValidation &&
+    rules.isEmail &&
     !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)
   ) {
     return false

@@ -1,0 +1,14 @@
+.Auth {
+  width: 70%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #EEE;
+  box-shadow: 0 2px 3px #CCC;
+  text-align: center;
+}
+
+.Auth input {
+  display: block;
+}
