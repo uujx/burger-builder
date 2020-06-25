@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Button from '../../UI/Button/Button'
 
 const OrderSummary = (props) => {
-
-    useEffect(() => {
-        console.log("[OrderSummary] useEffect")
-    })
 
     const ingredientsSummary = Object.keys(props.ingredients)
         .map(ing => {

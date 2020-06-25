@@ -33,14 +33,12 @@ export const purchaseBurgerFailed = (error) => {
 
 export const purchaseBurger = (order) => {
   return (dispatch, getState) => {
-
     dispatch(purchaseBurgerStart())
 
     const token = getState().auth.token
     axios
       .post('orders.json?auth=' + token, order)
       .then((res) => {
-        console.log(res)
         dispatch(purchaseBurgerSuccess(res.data.name, order))
       })
       .catch((err) => {
@@ -73,7 +71,7 @@ export const fetchOrders = () => {
   return (dispatch, getState) => {
     // Use getState to decide whether to fetch orders or use the cached one
     if (!getState().order.firstLaunch) {
-      return 
+      return
     }
 
     dispatch(fetchOrdersStart())

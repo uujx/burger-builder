@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch, useStore } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Button from '../../../components/UI/Button/Button'
 import axios from '../../../axios-orders'
